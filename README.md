@@ -15,4 +15,4 @@ This repository contains a simple Luas app that implements MVVM architecture usi
   - Repository pattern
 - [Retrofit2 & OkHttp3](https://github.com/square/retrofit) - construct the REST APIs and paging network data.
 - [SimpleXML](https://github.com/square/retrofit/tree/master/retrofit-converters/simplexml) - A XML converter library for Kotlin and Java.
-- [RxJava & RxAndroid] (https://github.com/ReactiveX/RxAndroid) - Library to make writing reactive components in Android applications easy and hassle-free.
+- [RxJava & RxAndroid](https://github.com/ReactiveX/RxAndroid) - Library to make writing reactive components in Android applications easy and hassle-free.
