@@ -23,20 +23,20 @@ A lot of people commute from city center to the office using LUAS every day. To 
 possible to see trams forecast. To help people I wrote a simple app considering only the following requests:
 
 
-Given I am a LUAS passenger:
-When I open the app from 00:00 – 12:00
+Given I am a LUAS passenger:  
+When I open the app from 00:00 – 12:00  
 Then I should see trams forecast from Marlborough LUAS stop towards Outbound
 
 
-Given I am a LUAS passenger
-When I open the app from 12:01 – 23:59
+Given I am a LUAS passenger:  
+When I open the app from 12:01 – 23:59  
 Then I should see trams forecast from Stillorgan LUAS stop towards Inbound
 
 
-Given I am on the stop forecast info screen
-When I tap on the refresh button
-Then the forecast data should be updated
+Given I am on the stop forecast info screen:  
+When I tap on the refresh button 
+Then the forecast data should be updated 
 
 
-To get real time information, it was used LUAS Forecasting API
+To get real time information, it was used LUAS Forecasting API  
 https://data.gov.ie/dataset/luas-forecasting-api
