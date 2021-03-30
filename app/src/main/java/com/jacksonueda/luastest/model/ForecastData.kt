@@ -1,5 +1,9 @@
 package com.jacksonueda.luastest.model
 
+/**
+ * Sealed class to represent all the possible status types of the forecast data.
+ *
+ */
 sealed class ForecastData
 
 object LoadingForecastData : ForecastData()

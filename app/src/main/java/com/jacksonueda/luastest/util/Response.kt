@@ -1,5 +1,8 @@
 package com.jacksonueda.luastest.util
 
+/**
+ * Generic class that holds the data and status about the loading data.
+  */
 data class Response<out T>(val status: Status, val data: T?, val error: Throwable?, val message: String?) {
 
     enum class Status {
