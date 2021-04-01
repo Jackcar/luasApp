@@ -131,7 +131,7 @@
             android:indeterminate="true"
             android:indeterminateTint="@color/lightPurple"
             android:visibility="gone"
-            app:isVisible="@{!isLoading}"
+            app:isVisible="@{isLoading}"
             app:layout_constraintBottom_toBottomOf="@+id/forecastRecyclerView"
             app:layout_constraintEnd_toEndOf="@+id/forecastRecyclerView"
             app:layout_constraintStart_toStartOf="@+id/forecastRecyclerView"

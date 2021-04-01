@@ -16,9 +16,8 @@ public class Log {
         return 0;
     }
 
-    public static int e(String tag, String msg) {
-        System.out.println("ERROR: " + tag + ": " + msg);
+    public static int e(String tag, String msg, Throwable tr) {
+        System.out.println("ERROR: " + tag + ": " + msg + '\n' + tr.getLocalizedMessage());
         return 0;
     }
-
 }

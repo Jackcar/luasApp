@@ -43,6 +43,9 @@ class ForecastFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        viewModel.initialize()
+        viewModel.refreshForecast()
+
         setupBindings()
         setupObservers()
     }

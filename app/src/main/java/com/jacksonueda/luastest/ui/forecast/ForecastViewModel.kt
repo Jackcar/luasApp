@@ -31,10 +31,10 @@ class ForecastViewModel @ViewModelInject constructor(
     val currentForecast: MutableLiveData<Response<StopInfo>> = MutableLiveData()
 
     /**
-     * Init the ViewModel subscribing to the Forecast Observable from the repository and observes
-     * the new data received. Also refresh the forecast to load the latest data.
+     * Initialize the ViewModel subscribing to the Forecast Observable from the repository and observes
+     * the new data received.
      */
-    init {
+    fun initialize() {
         addToDisposable(
             repository.forecast
                 .observeOn(AndroidSchedulers.mainThread())
@@ -70,7 +70,6 @@ class ForecastViewModel @ViewModelInject constructor(
                     }
                 )
         )
-        refreshForecast()
     }
 
     /**
@@ -94,7 +93,8 @@ class ForecastViewModel @ViewModelInject constructor(
 
     /**
      * Returns a default stop name based on the current device time.
-     *
+     * Should return 'MAR' if the time is between 00:00 and 12:00
+     * else should return 'STI'
      */
     private fun getStopName() = when {
         LocalTime.now().isAfter(LocalTime.MIDNIGHT) && LocalTime.now()

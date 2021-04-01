@@ -20,11 +20,7 @@ class ForecastRepository @Inject constructor(
 ) : IForecastRepository {
 
     // Emits the most recent item it has observed and all subsequent observed items to each subscribed Observer.
-    private val forecastSubject = BehaviorSubject.createDefault(
-        LoadedForecastData(
-            StopInfo()
-        ) as ForecastData
-    )
+    private val forecastSubject = BehaviorSubject.createDefault(LoadingForecastData as ForecastData)
 
     // Expose the forecast Observable to subscribers receive the new data
     override val forecast: Observable<ForecastData> = forecastSubject
