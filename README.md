@@ -42,7 +42,7 @@ To get real time information, it was used LUAS Forecasting API
 https://data.gov.ie/dataset/luas-forecasting-api
 
 
-### The architecture
+## The architecture
 <img src="assets/architecture.png" height="540">
 
 
@@ -50,7 +50,7 @@ https://data.gov.ie/dataset/luas-forecasting-api
 
 MVVM is a template of a client application architecture as an alternative to MVC and MVP patterns when using Data Binding technology. Its concept is to separate data presentation logic from business logic by moving it into particular class for a clear distinction.
 
-**Why Promoting MVVM VS MVP:**
+**Why Promoting MVVM vs MVP:**
 - ViewModel has Built in LifeCycleOwerness, on the other hand Presenter not, and you have to take this responsibly in your side.
 - ViewModel doesn't have a reference for View, on the other hand Presenter still hold a reference for view, even if you made it as weak reference.
 - ViewModel survive configuration changes, while it is your own responsibilities to survive the configuration changes in case of Presenter. (Saving and restoring the UI state)
