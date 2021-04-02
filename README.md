@@ -42,7 +42,7 @@ To get real time information, it was used LUAS Forecasting API
 https://data.gov.ie/dataset/luas-forecasting-api
 
 
-### The architecture
+## The architecture
 <img src="assets/architecture.png" height="540">
 
 
