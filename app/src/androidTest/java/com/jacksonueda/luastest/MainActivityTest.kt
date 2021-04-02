@@ -32,11 +32,11 @@ class MainActivityTest {
 
     @Test
     fun verifyRefreshButton() {
-        onView(withId(R.id.refreshButton))
-            .perform(click())
-
         onView(withId(R.id.loadingIndicator))
             .check(matches(isDisplayed()))
+
+        onView(withId(R.id.refreshButton))
+            .perform(click())
     }
 
 }
