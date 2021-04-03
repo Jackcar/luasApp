@@ -1,7 +1,9 @@
 package com.jacksonueda.luastest.binding
 
 import android.view.View
+import android.widget.ImageView
 import androidx.databinding.BindingAdapter
+import com.bumptech.glide.Glide
 
 /**
  * Binding adapters are responsible for making the appropriate framework calls to set values.
@@ -24,6 +26,13 @@ object ViewBindingAdapter {
         } else {
             View.GONE
         }
+    }
+
+    @JvmStatic
+    @BindingAdapter("imageUrl")
+    fun ImageView.loadImage(url: String?) {
+        if (url.isNullOrEmpty()) return
+        Glide.with(this).load(url).into(this)
     }
 
 }

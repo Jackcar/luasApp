@@ -4,11 +4,10 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import androidx.lifecycle.SavedStateHandle
 import com.jacksonueda.luastest.RxImmediateSchedulerRule
-import com.jacksonueda.luastest.model.ErrorForecastData
-import com.jacksonueda.luastest.model.LoadedForecastData
-import com.jacksonueda.luastest.model.LoadingForecastData
-import com.jacksonueda.luastest.model.StopInfo
-import com.jacksonueda.luastest.repository.forecast.ForecastRepository
+import com.jacksonueda.luastest.data.model.ErrorForecastData
+import com.jacksonueda.luastest.data.model.LoadedForecastData
+import com.jacksonueda.luastest.data.model.LoadingForecastData
+import com.jacksonueda.luastest.data.repository.forecast.ForecastRepository
 import com.jacksonueda.luastest.ui.forecast.ForecastViewModel
 import com.jacksonueda.luastest.util.Response
 import com.nhaarman.mockitokotlin2.*

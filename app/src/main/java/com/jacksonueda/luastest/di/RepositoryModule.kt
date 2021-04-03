@@ -1,8 +1,8 @@
 package com.jacksonueda.luastest.di
 
-import com.jacksonueda.luastest.api.LuasService
-import com.jacksonueda.luastest.repository.forecast.ForecastRepository
-import com.jacksonueda.luastest.repository.forecast.IForecastRepository
+import com.jacksonueda.luastest.data.api.CharacterApi
+import com.jacksonueda.luastest.data.repository.character.CharacterRepository
+import com.jacksonueda.luastest.data.repository.character.ICharacterRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,13 +19,14 @@ import dagger.hilt.android.scopes.ViewModelScoped
 object RepositoryModule {
 
     /**
-     * Provides the Forecast Repository object to make API calls.
+     * Provides the Character Repository object to make API calls.
      *
-     * @param luasService
-     * @return ForecastRepository
+     * @param characterApi
+     * @return CharacterRepository
      */
     @Provides
     @ViewModelScoped
-    fun provideForecastRepository(luasService: LuasService): IForecastRepository = ForecastRepository(luasService)
+    fun provideForecastRepository(characterApi: CharacterApi): ICharacterRepository =
+        CharacterRepository(characterApi)
 
 }

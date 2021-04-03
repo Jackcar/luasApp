@@ -1,11 +1,9 @@
-package com.jacksonueda.luastest.repository
+package com.jacksonueda.luastest.data.repository
 
-import com.jacksonueda.luastest.api.LuasService
-import com.jacksonueda.luastest.model.ErrorForecastData
-import com.jacksonueda.luastest.model.LoadedForecastData
-import com.jacksonueda.luastest.model.LoadingForecastData
-import com.jacksonueda.luastest.model.StopInfo
-import com.jacksonueda.luastest.repository.forecast.ForecastRepository
+import com.jacksonueda.luastest.data.model.ErrorForecastData
+import com.jacksonueda.luastest.data.model.LoadedForecastData
+import com.jacksonueda.luastest.data.model.LoadingForecastData
+import com.jacksonueda.luastest.data.repository.forecast.ForecastRepository
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.atLeastOnce
 import com.nhaarman.mockitokotlin2.verify

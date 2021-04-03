@@ -1,7 +1,7 @@
 package com.jacksonueda.luastest.di
 
 import com.jacksonueda.luastest.BuildConfig
-import com.jacksonueda.luastest.api.LuasService
+import com.jacksonueda.luastest.data.api.CharacterApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -11,7 +11,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
-import retrofit2.converter.simplexml.SimpleXmlConverterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 /**
@@ -22,6 +22,7 @@ import javax.inject.Singleton
 // Indicates which component scope the module should be installed, in this case in the SingletonComponent
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
+    private const val BASE_URL = "https://rickandmortyapi.com/api/"
 
     /**
      * Provides the OkHttpClient object, which is responsible for any low-level network operations,
@@ -50,13 +51,12 @@ object NetworkModule {
     fun provideRetrofit(client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .client(provideClient())
-            .baseUrl("https://luasforecasts.rpa.ie/xml/")
+            .baseUrl(BASE_URL)
 
             // RxJava adapter to receive call results with custom handlers like RxJava Observers and Flowables.
             .addCallAdapterFactory(RxJava3CallAdapterFactory.createWithScheduler(Schedulers.io()))
 
-            // Inclusion of XML Converter as the data received from the server is in the XML format.
-            .addConverterFactory(SimpleXmlConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
 
@@ -68,8 +68,8 @@ object NetworkModule {
      */
     @Provides
     @Singleton
-    fun provideLuasService(retrofit: Retrofit): LuasService {
-        return retrofit.create(LuasService::class.java)
+    fun provideCharacterApi(retrofit: Retrofit): CharacterApi {
+        return retrofit.create(CharacterApi::class.java)
     }
 
 }
