@@ -1,8 +1,11 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
-apply plugin: 'dagger.hilt.android.plugin'
-apply plugin: 'kotlin-parcelize'
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id 'kotlin-parcelize'
+    id 'androidx.navigation.safeargs.kotlin'
+}
 
 apply from: "$rootDir/dependencies.gradle"
 
@@ -11,7 +14,7 @@ android {
     buildToolsVersion versions.buildTools
 
     defaultConfig {
-        applicationId "com.jacksonueda.luastest"
+        applicationId "com.jacksonueda.test"
         minSdkVersion versions.minSdk
         targetSdkVersion versions.compileSdk
         versionCode versions.versionCode
@@ -57,6 +60,8 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:$versions.recyclerView"
     implementation "androidx.cardview:cardview:$versions.cardview"
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.4'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.4'
 
     // desugaring
     coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:$versions.coreDesugaring"
