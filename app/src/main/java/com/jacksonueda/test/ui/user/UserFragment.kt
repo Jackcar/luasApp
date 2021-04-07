@@ -13,7 +13,6 @@ import com.jacksonueda.test.databinding.ItemUserBinding
 import com.jacksonueda.test.databinding.UserFragmentBinding
 import com.jacksonueda.test.ui.user.detail.UserDetailFragment
 import dagger.hilt.android.AndroidEntryPoint
-import io.reactivex.rxjava3.disposables.CompositeDisposable
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @AndroidEntryPoint
@@ -27,7 +26,6 @@ class UserFragment : Fragment(), UserAdapter.UserClickListener {
 
     private val userAdapter = UserAdapter(this)
     private val viewModel: UserViewModel by viewModels()
-    private val compositeDisposable = CompositeDisposable()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,44 +41,37 @@ class UserFragment : Fragment(), UserAdapter.UserClickListener {
 
         setupBindings()
         setupListeners()
-        setupData()
+        setupObservers()
+
+        viewModel.getUsers()
     }
 
     /**
      * Function responsible to set up the binding variables or views to the Fragment.
      */
     private fun setupBindings() {
-        with(binding) {
-            userRecyclerView.adapter = userAdapter
-            swipeRefreshLayout.setOnRefreshListener { userAdapter.refresh() }
-        }
+        binding.userRecyclerView.adapter = userAdapter
     }
 
     private fun setupListeners() {
+        binding.swipeRefreshLayout.setOnRefreshListener { userAdapter.refresh() }
         userAdapter.addLoadStateListener {
             binding.swipeRefreshLayout.isRefreshing = it.refresh is LoadState.Loading
         }
     }
 
-    @ExperimentalCoroutinesApi
-    private fun setupData() {
-        compositeDisposable.add(
-            viewModel.users.subscribe {
-                userAdapter.submitData(lifecycle, it)
-            }
-        )
+    private fun setupObservers() {
+        viewModel.users.observeForever {
+            userAdapter.submitData(lifecycle, it)
+        }
     }
 
     override fun onUserClicked(binding: ItemUserBinding, user: User) {
         parentFragmentManager.beginTransaction()
             .add(R.id.container, UserDetailFragment.newInstance(user))
-            .addToBackStack(null)
+            .addToBackStack("userDetails")
             .commit()
     }
 
-    override fun onDestroyView() {
-        compositeDisposable.clear()
-        super.onDestroyView()
-    }
 }
 
