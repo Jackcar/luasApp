@@ -1,10 +1,9 @@
 package com.jacksonueda.test.data.repository.user
 
 import androidx.paging.PagingData
-import com.jacksonueda.test.data.api.RandomUserAPI
+import com.jacksonueda.test.data.api.GithubService
 import com.jacksonueda.test.data.model.PageInfo
 import com.jacksonueda.test.data.model.PagedResponse
-import com.jacksonueda.test.data.repository.user.UserRepository
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
@@ -21,21 +20,21 @@ import org.mockito.junit.MockitoJUnitRunner
 @RunWith(MockitoJUnitRunner::class)
 class UserRepositoryTest {
 
-    private lateinit var repository: UserRepository
+    private lateinit var repository: GithubRepository
 
     @Mock
-    private lateinit var randomUserAPI: RandomUserAPI
+    private lateinit var githubService: GithubService
 
     @Before
     fun setup() {
-        repository = UserRepository(randomUserAPI)
+        repository = GithubRepository(githubService)
     }
 
     @Test
     fun `should return an User when service is called`() {
         // Given
         val pageInfo = PageInfo("abc", 10, 1, "1.0")
-        whenever(randomUserAPI.getUsers(any(), any(), any())).thenReturn(
+        whenever(githubService.getUser(any(), any(), any())).thenReturn(
             Single.just(
                 PagedResponse(
                     pageInfo,
@@ -45,13 +44,13 @@ class UserRepositoryTest {
         )
 
         // When
-        val testObserver = repository.getUsers().test().assertValue{ it is PagingData }
+        val testObserver = repository.getUser().test().assertValue{ it is PagingData }
 
         // Then
 //        testObserver.await()
 //        testObserver.assertComplete()
 //        testObserver.assertNoErrors()
-        verify(randomUserAPI, times(1)).getUsers(any(), any(), any())
+        verify(githubService, times(1)).getUser(any(), any(), any())
     }
 
 }

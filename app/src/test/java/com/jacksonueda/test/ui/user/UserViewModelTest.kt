@@ -8,7 +8,7 @@ import com.jacksonueda.test.data.model.Id
 import com.jacksonueda.test.data.model.Name
 import com.jacksonueda.test.data.model.Picture
 import com.jacksonueda.test.data.model.User
-import com.jacksonueda.test.data.repository.user.UserRepository
+import com.jacksonueda.test.data.repository.user.GithubRepository
 import com.nhaarman.mockitokotlin2.*
 import io.reactivex.rxjava3.core.Flowable
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -27,7 +27,7 @@ class UserViewModelTest {
     private lateinit var viewModel: UserViewModel
 
     @Mock
-    private lateinit var repository: UserRepository
+    private lateinit var repository: GithubRepository
 
     @Mock
     lateinit var mockLiveDataObserver: Observer<PagingData<User>>
@@ -43,7 +43,7 @@ class UserViewModelTest {
     @Before
     fun setup() {
         viewModel = UserViewModel(repository)
-        viewModel.users.observeForever(mockLiveDataObserver)
+        viewModel.repos.observeForever(mockLiveDataObserver)
     }
 
     @Test
@@ -51,13 +51,13 @@ class UserViewModelTest {
         // Given
         val user = User(Id("", ""), Name("", "", ""), "", Picture("", "", ""))
         val pagingData = PagingData.from(listOf(user))
-        whenever(repository.getUsers()).thenReturn(Flowable.just(pagingData))
+        whenever(repository.getUser()).thenReturn(Flowable.just(pagingData))
 
         // When
         viewModel.getUsers()
 
         // Then
-        verify(repository, times(1)).getUsers()
+        verify(repository, times(1)).getUser()
         verify(mockLiveDataObserver, times(1)).onChanged(eq(pagingData))
     }
 
@@ -65,13 +65,13 @@ class UserViewModelTest {
     fun `should not receive data update when data fails to refresh`() {
         // Given
         val exception = Exception()
-        whenever(repository.getUsers()).thenReturn(Flowable.error(exception))
+        whenever(repository.getUser()).thenReturn(Flowable.error(exception))
 
         // When
         viewModel.getUsers()
 
         // Then
-        verify(repository, times(1)).getUsers()
+        verify(repository, times(1)).getUser()
         verifyZeroInteractions(mockLiveDataObserver)
     }
 

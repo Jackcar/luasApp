@@ -1,7 +1,7 @@
 package com.jacksonueda.test.di
 
 import com.jacksonueda.test.BuildConfig
-import com.jacksonueda.test.data.api.RandomUserAPI
+import com.jacksonueda.test.data.api.GithubService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,7 +22,7 @@ import javax.inject.Singleton
 // Indicates which component scope the module should be installed, in this case in the SingletonComponent
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
-    private const val BASE_URL = "https://randomuser.me/"
+    private const val BASE_URL = "https://api.github.com/"
 
     /**
      * Provides the OkHttpClient object, which is responsible for any low-level network operations,
@@ -61,15 +61,15 @@ object NetworkModule {
     }
 
     /**
-     * Provides the RandomUser service implementation.
+     * Provides the GitHub service implementation.
      *
      * @param retrofit the Retrofit object used to instantiate the service
-     * @return the RandomUserAPI implementation.
+     * @return the GitHub implementation.
      */
     @Provides
     @Singleton
-    fun provideUserApi(retrofit: Retrofit): RandomUserAPI {
-        return retrofit.create(RandomUserAPI::class.java)
+    fun provideUserApi(retrofit: Retrofit): GithubService {
+        return retrofit.create(GithubService::class.java)
     }
 
 }

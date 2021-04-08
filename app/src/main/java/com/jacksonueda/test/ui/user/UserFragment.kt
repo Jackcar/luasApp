@@ -8,15 +8,16 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.paging.LoadState
 import com.jacksonueda.test.R
-import com.jacksonueda.test.data.model.User
-import com.jacksonueda.test.databinding.ItemUserBinding
+import com.jacksonueda.test.data.model.Repo
+import com.jacksonueda.test.databinding.ItemRepoBinding
 import com.jacksonueda.test.databinding.UserFragmentBinding
 import com.jacksonueda.test.ui.user.detail.UserDetailFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
+@ExperimentalCoroutinesApi
 @AndroidEntryPoint
-class UserFragment : Fragment(), UserAdapter.UserClickListener {
+class UserFragment : Fragment(), RepoAdapter.UserClickListener {
 
     companion object {
         fun newInstance() = UserFragment()
@@ -24,7 +25,7 @@ class UserFragment : Fragment(), UserAdapter.UserClickListener {
 
     private lateinit var binding: UserFragmentBinding
 
-    private val userAdapter = UserAdapter(this)
+    private val userAdapter = RepoAdapter(this)
     private val viewModel: UserViewModel by viewModels()
 
     override fun onCreateView(
@@ -61,14 +62,14 @@ class UserFragment : Fragment(), UserAdapter.UserClickListener {
     }
 
     private fun setupObservers() {
-        viewModel.users.observeForever {
+        viewModel.repos.observeForever {
             userAdapter.submitData(lifecycle, it)
         }
     }
 
-    override fun onUserClicked(binding: ItemUserBinding, user: User) {
+    override fun onUserClicked(binding: ItemRepoBinding, repo: Repo) {
         parentFragmentManager.beginTransaction()
-            .add(R.id.container, UserDetailFragment.newInstance(user))
+            .add(R.id.container, UserDetailFragment.newInstance(repo))
             .addToBackStack("userDetails")
             .commit()
     }

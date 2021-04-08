@@ -1,8 +1,8 @@
 package com.jacksonueda.test.di
 
-import com.jacksonueda.test.data.api.RandomUserAPI
-import com.jacksonueda.test.data.repository.user.IUserRepository
-import com.jacksonueda.test.data.repository.user.UserRepository
+import com.jacksonueda.test.data.api.GithubService
+import com.jacksonueda.test.data.repository.user.IGithubRepository
+import com.jacksonueda.test.data.repository.user.GithubRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,12 +21,12 @@ object RepositoryModule {
     /**
      * Provides the User Repository object to make API calls.
      *
-     * @param randomUserAPI
+     * @param githubService
      * @return IUserRepository
      */
     @Provides
     @ViewModelScoped
-    fun provideUserRepository(randomUserAPI: RandomUserAPI): IUserRepository =
-        UserRepository(randomUserAPI)
+    fun provideUserRepository(githubService: GithubService): IGithubRepository =
+        GithubRepository(githubService)
 
 }

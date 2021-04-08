@@ -6,19 +6,20 @@
     <data>
 
         <variable
-            name="user"
-            type="com.jacksonueda.test.data.model.User" />
+            name="repo"
+            type="com.jacksonueda.test.data.model.Repo" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/white"
-        android:clickable="true">
+        android:clickable="true"
+        android:focusable="true">
 
         <ImageView
             android:id="@+id/iv_avatar"
-            imageUrl="@{user.picture.medium}"
+            imageUrl="@{repo.owner.avatarUrl}"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:transitionName="picture"
@@ -34,7 +35,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="@dimen/margin_medium"
-            android:text="@{user.name.first + user.name.last}"
+            android:text="@{repo.name}"
             android:textSize="@dimen/text_large"
             android:transitionName="name"
             app:layout_constraintEnd_toEndOf="parent"
@@ -47,7 +48,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@{user.email}"
+            android:text="@{repo.description}"
             android:textSize="@dimen/text_medium"
             android:transitionName="email"
             app:layout_constraintEnd_toEndOf="parent"

@@ -6,32 +6,32 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.jacksonueda.test.data.model.User
+import com.jacksonueda.test.data.model.Repo
 import com.jacksonueda.test.databinding.UserDetailFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
 
-private const val USER = "user"
+private const val REPO = "user"
 
 @AndroidEntryPoint
 class UserDetailFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(user: User) = UserDetailFragment().apply {
+        fun newInstance(repo: Repo) = UserDetailFragment().apply {
             arguments = Bundle().apply {
-                putParcelable(USER, user)
+                putParcelable(REPO, repo)
             }
         }
     }
 
-    private lateinit var userDetails: User
+    private lateinit var repoDetails: Repo
     private val viewModel: UserDetailViewModel by viewModels()
     private lateinit var binding: UserDetailFragmentBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            userDetails = it.getParcelable<User>(USER) as User
+            repoDetails = it.getParcelable<Repo>(REPO) as Repo
         }
     }
 
@@ -46,7 +46,7 @@ class UserDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.user = userDetails
+        binding.repo = repoDetails
     }
 
 }
