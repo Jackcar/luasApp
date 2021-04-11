@@ -1,8 +1,8 @@
 package com.jacksonueda.test.di
 
 import com.jacksonueda.test.data.api.GithubService
-import com.jacksonueda.test.data.repository.user.IGithubRepository
-import com.jacksonueda.test.data.repository.user.GithubRepository
+import com.jacksonueda.test.data.repository.IGithubRepository
+import com.jacksonueda.test.data.repository.GithubRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

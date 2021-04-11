@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="repo"
             type="com.jacksonueda.test.data.model.Repo" />
@@ -21,33 +23,119 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/margin_medium">
 
+            <ImageView
+                android:id="@+id/repoAvatar"
+                imageUrl="@{repo.owner.avatarUrl}"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:transitionName="picture"
+                app:layout_constraintDimensionRatio="W,1:1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@tools:sample/avatars" />
+
             <TextView
                 android:id="@+id/repoName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_medium"
+                android:ellipsize="end"
                 android:gravity="start"
-                android:textStyle="bold"
+                android:maxLines="1"
                 android:text="@{repo.name}"
                 android:textSize="@dimen/text_large"
+                android:textStyle="bold"
                 android:transitionName="name"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/repoAvatar"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Site-kit-wp" />
 
             <TextView
-                android:id="@+id/repoDescription"
+                android:id="@+id/repoMasterBranch"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:gravity="start"
+                android:layout_marginStart="@dimen/margin_medium"
                 android:layout_marginTop="@dimen/margin_small"
+                android:layout_marginBottom="27dp"
+                android:ellipsize="end"
+                android:gravity="start"
+                android:maxLines="2"
                 android:text="@{repo.description}"
                 android:textSize="@dimen/text_medium"
                 android:transitionName="email"
+                app:layout_constraintBottom_toBottomOf="@+id/repoAvatar"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/repoAvatar"
                 app:layout_constraintTop_toBottomOf="@+id/repoName"
                 tools:text="Site kit is a one-stop solution" />
+
+            <TextView
+                android:id="@+id/repoLanguages"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_small"
+                android:ellipsize="end"
+                android:gravity="start"
+                android:text="@{`Language: ` + repo.language}"
+                android:textSize="@dimen/text_medium"
+                android:transitionName="email"
+                android:visibility="@{repo.language != null ? View.VISIBLE : View.INVISIBLE}"
+                app:layout_constraintBottom_toBottomOf="@+id/star"
+                app:layout_constraintEnd_toStartOf="@+id/star"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/star"
+                tools:text="Language: Java" />
+
+            <ImageView
+                android:id="@+id/star"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="@dimen/margin_small"
+                android:layout_marginEnd="@dimen/margin_small"
+                android:contentDescription="@string/star_icon"
+                android:src="@drawable/ic_star"
+                app:layout_constraintEnd_toStartOf="@+id/repoStarsCount"
+                app:layout_constraintTop_toBottomOf="@+id/repoAvatar"
+                app:tint="@color/yellow" />
+
+            <TextView
+                android:id="@+id/repoStarsCount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_medium"
+                android:gravity="start"
+                android:text="@{Integer.toString(repo.stargazersCount)}"
+                android:textSize="@dimen/text_medium"
+                android:transitionName="email"
+                app:layout_constraintBottom_toBottomOf="@+id/star"
+                app:layout_constraintEnd_toStartOf="@+id/forks"
+                app:layout_constraintTop_toTopOf="@+id/star"
+                tools:text="219" />
+
+            <ImageView
+                android:id="@+id/forks"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_marginEnd="@dimen/margin_small"
+                android:contentDescription="@string/fork_icon"
+                android:src="@drawable/ic_fork"
+                app:layout_constraintBottom_toBottomOf="@+id/star"
+                app:layout_constraintEnd_toStartOf="@+id/repoBranchesCount"
+                app:layout_constraintTop_toTopOf="@+id/star" />
+
+            <TextView
+                android:id="@+id/repoBranchesCount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="@{Integer.toString(repo.forksCount)}"
+                android:textSize="@dimen/text_medium"
+                android:transitionName="email"
+                app:layout_constraintBottom_toBottomOf="@+id/star"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/star"
+                tools:text="219" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

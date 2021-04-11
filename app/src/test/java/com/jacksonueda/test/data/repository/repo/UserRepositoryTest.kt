@@ -1,9 +1,10 @@
-package com.jacksonueda.test.data.repository.user
+package com.jacksonueda.test.data.repository.repo
 
 import androidx.paging.PagingData
 import com.jacksonueda.test.data.api.GithubService
 import com.jacksonueda.test.data.model.PageInfo
 import com.jacksonueda.test.data.model.PagedResponse
+import com.jacksonueda.test.data.repository.GithubRepository
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify

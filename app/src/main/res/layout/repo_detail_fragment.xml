@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="android.text.TextUtils" />
+
+        <variable
+            name="repo"
+            type="com.jacksonueda.test.data.model.Repo" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white">
+
+        <ImageView
+            android:id="@+id/repoAvatar"
+            imageUrl="@{repo.owner.avatarUrl}"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="@dimen/text_medium"
+            android:layout_marginTop="@dimen/text_medium"
+            android:transitionName="avatar"
+            app:layout_constraintDimensionRatio="W,1:1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/repoFullName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_medium"
+            android:layout_marginEnd="@dimen/text_medium"
+            android:gravity="start"
+            android:text="@{repo.fullName}"
+            android:textSize="@dimen/text_large"
+            android:textStyle="bold"
+            android:transitionName="name"
+            app:layout_constraintBottom_toTopOf="@+id/repoLanguage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/repoAvatar"
+            app:layout_constraintTop_toTopOf="@+id/repoAvatar"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="google / abpackage" />
+
+        <TextView
+            android:id="@+id/repoLanguage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_medium"
+            android:layout_marginEnd="@dimen/text_medium"
+            android:gravity="start"
+            android:text="@{`Language: ` + repo.language}"
+            android:textSize="@dimen/text_medium"
+            android:transitionName="language"
+            android:visibility="@{repo.language != null ? View.VISIBLE : View.INVISIBLE}"
+            app:layout_constraintBottom_toBottomOf="@+id/repoAvatar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/repoAvatar"
+            app:layout_constraintTop_toBottomOf="@+id/repoFullName"
+            tools:text="Language: C" />
+
+        <TextView
+            android:id="@+id/aboutLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_small"
+            android:gravity="center"
+            android:text="@string/about_label"
+            android:textSize="@dimen/text_medium"
+            android:visibility="@{TextUtils.isEmpty(repo.description) ? View.GONE : View.VISIBLE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/repoAvatar" />
+
+        <TextView
+            android:id="@+id/repoMasterBranch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/text_medium"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginEnd="@dimen/text_medium"
+            android:gravity="center"
+            android:text="@{repo.description}"
+            android:textSize="@dimen/text_medium"
+            android:transitionName="description"
+            android:visibility="@{TextUtils.isEmpty(repo.description) ? View.GONE : View.VISIBLE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/aboutLabel"
+            tools:text="An R package for AB testing leveraging pre-period information" />
+
+        <ImageView
+            android:id="@+id/watchersIcon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="@dimen/margin_xlarge"
+            android:contentDescription="@string/default_branch_icon_description"
+            android:src="@drawable/ic_watchers"
+            app:layout_constraintEnd_toStartOf="@+id/starsIcon"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/starsIcon"
+            app:tint="@color/gray" />
+
+        <TextView
+            android:id="@+id/watchersLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_small"
+            android:gravity="center"
+            android:text="@{repo.watchersCount + ` watchers`}"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/text_medium"
+            app:layout_constraintEnd_toEndOf="@+id/watchersIcon"
+            app:layout_constraintStart_toStartOf="@+id/watchersIcon"
+            app:layout_constraintTop_toBottomOf="@+id/watchersIcon"
+            tools:text="18 watchers" />
+
+        <ImageView
+            android:id="@+id/starsIcon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:contentDescription="@string/default_branch_icon_description"
+            android:src="@drawable/ic_star"
+            app:layout_constraintEnd_toStartOf="@+id/forksIcon"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/watchersIcon"
+            app:layout_constraintTop_toBottomOf="@+id/repoMasterBranch"
+            app:tint="@color/yellow" />
+
+        <TextView
+            android:id="@+id/starsLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_small"
+            android:gravity="center"
+            android:text="@{repo.stargazersCount + ` stars`}"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/text_medium"
+            app:layout_constraintEnd_toEndOf="@+id/starsIcon"
+            app:layout_constraintStart_toStartOf="@+id/starsIcon"
+            app:layout_constraintTop_toBottomOf="@+id/starsIcon"
+            tools:text="18 stars" />
+
+        <ImageView
+            android:id="@+id/forksIcon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="@dimen/margin_xlarge"
+            android:contentDescription="@string/default_branch_icon_description"
+            android:src="@drawable/ic_fork"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/starsIcon"
+            app:layout_constraintTop_toTopOf="@+id/starsIcon"
+            app:tint="@color/gray" />
+
+        <TextView
+            android:id="@+id/forksLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_small"
+            android:gravity="center"
+            android:text="@{repo.forksCount + ` forks`}"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/text_medium"
+            app:layout_constraintEnd_toEndOf="@+id/forksIcon"
+            app:layout_constraintStart_toStartOf="@+id/forksIcon"
+            app:layout_constraintTop_toBottomOf="@+id/forksIcon"
+            tools:text="8 forks" />
+
+        <TextView
+            android:id="@+id/issuesLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:background="@color/lightGray"
+            android:gravity="start"
+            android:paddingHorizontal="@dimen/text_large"
+            android:paddingVertical="@dimen/margin_small"
+            android:text="@{`Issues (` + repo.openIssuesCount + `)`}"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/text_medium"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/starsLabel"
+            tools:text="Issues (10)" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/issuesRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@+id/issuesLabel"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:spanCount="3"
+            tools:itemCount="20"
+            tools:listitem="@layout/item_repo_issue" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

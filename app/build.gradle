@@ -77,6 +77,7 @@ dependencies {
     kapt "com.google.dagger:hilt-compiler:$versions.hiltCoreVersion"
     kapt "androidx.hilt:hilt-compiler:$versions.hiltVersion"
     kapt "com.google.dagger:hilt-android-compiler:$versions.hiltCoreVersion"
+    implementation "androidx.hilt:hilt-navigation-fragment:$versions.hiltCommonVersion"
 
     // glide
     implementation 'com.github.bumptech.glide:glide:4.12.0'

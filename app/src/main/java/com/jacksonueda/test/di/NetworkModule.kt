@@ -1,5 +1,7 @@
 package com.jacksonueda.test.di
 
+import com.google.gson.FieldNamingPolicy
+import com.google.gson.GsonBuilder
 import com.jacksonueda.test.BuildConfig
 import com.jacksonueda.test.data.api.GithubService
 import dagger.Module
@@ -56,7 +58,13 @@ object NetworkModule {
             // RxJava adapter to receive call results with custom handlers like RxJava Observers and Flowables.
             .addCallAdapterFactory(RxJava3CallAdapterFactory.createWithScheduler(Schedulers.io()))
 
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(
+                GsonConverterFactory.create(
+                    GsonBuilder()
+                        .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                        .create()
+                )
+            )
             .build()
     }
 

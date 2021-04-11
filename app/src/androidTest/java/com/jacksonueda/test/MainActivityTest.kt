@@ -2,7 +2,7 @@ package com.jacksonueda.test
 
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.jacksonueda.test.ui.user.UserFragment
+import com.jacksonueda.test.ui.repo.RepoFragment
 import org.junit.Before
 import org.junit.Rule
 import org.junit.runner.RunWith
@@ -19,7 +19,7 @@ class MainActivityTest {
     fun init() {
         activityRule.scenario.onActivity {
             it.supportFragmentManager.beginTransaction()
-                .replace(R.id.container, UserFragment.newInstance())
+                .replace(R.id.container, RepoFragment.newInstance())
                 .commitNow()
         }
     }

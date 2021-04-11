@@ -2,4 +2,10 @@
     <string name="app_name">Test</string>
     <string name="label_duration">Duration</string>
     <string name="label_destination">Destination</string>
+    <string name="star_icon">Star icon</string>
+    <string name="fork_icon">Fork icon</string>
+    <string name="about_label">About</string>
+    <string name="default_branch_icon_description">Default branch icon</string>
+    <string name="issue_icon">Issue icon</string>
+    <string name="retry_button">Retry</string>
 </resources>

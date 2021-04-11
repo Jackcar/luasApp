@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/repoFragment">
+
+    <fragment
+        android:id="@+id/repoFragment"
+        android:name="com.jacksonueda.test.ui.repo.RepoFragment"
+        android:label="RepoFragment">
+        <action
+            android:id="@+id/repoDetails"
+            app:destination="@id/repoDetailFragment">
+            <argument
+                android:name="repo"
+                app:argType="com.jacksonueda.test.data.model.Repo" />
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/repoDetailFragment"
+        android:name="com.jacksonueda.test.ui.repo.detail.RepoDetailFragment"
+        android:label="RepoDetailFragment" >
+        <argument
+            android:name="repo"
+            app:argType="com.jacksonueda.test.data.model.Repo" />
+    </fragment>
+</navigation>

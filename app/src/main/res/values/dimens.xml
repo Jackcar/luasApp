@@ -5,6 +5,7 @@
     <dimen name="margin_small">10dp</dimen>
     <dimen name="margin_medium">20dp</dimen>
     <dimen name="margin_large">40dp</dimen>
+    <dimen name="margin_xlarge">60dp</dimen>
 
     <dimen name="text_small">11sp</dimen>
     <dimen name="text_medium">14sp</dimen>

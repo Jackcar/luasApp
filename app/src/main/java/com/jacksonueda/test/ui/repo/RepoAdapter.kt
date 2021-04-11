@@ -1,4 +1,4 @@
-package com.jacksonueda.test.ui.user
+package com.jacksonueda.test.ui.repo
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,13 +7,15 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.jacksonueda.test.data.model.Repo
 import com.jacksonueda.test.databinding.ItemRepoBinding
+import com.jacksonueda.test.databinding.ItemRepoLoadStateFooterBinding
 
 class RepoAdapter constructor(
-    private var clickListener: UserClickListener
+    private var clickListener: RepoClickListener
 ) :
     PagingDataAdapter<Repo, RepoAdapter.RepoViewHolder>(RepoComparator) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepoViewHolder =
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepoAdapter.RepoViewHolder =
         RepoViewHolder(
             ItemRepoBinding.inflate(
                 LayoutInflater.from(parent.context),
@@ -22,7 +24,7 @@ class RepoAdapter constructor(
             )
         )
 
-    override fun onBindViewHolder(holder: RepoViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RepoAdapter.RepoViewHolder, position: Int) {
         holder.binding.apply {
             repo = getItem(position)
             executePendingBindings()
@@ -33,7 +35,7 @@ class RepoAdapter constructor(
         RecyclerView.ViewHolder(binding.root) {
         init {
             itemView.setOnClickListener {
-                clickListener.onUserClicked(
+                clickListener.onRepoClicked(
                     binding,
                     getItem(absoluteAdapterPosition) as Repo
                 )
@@ -49,8 +51,8 @@ class RepoAdapter constructor(
             oldItem == newItem
     }
 
-    interface UserClickListener {
-        fun onUserClicked(binding: ItemRepoBinding, repo: Repo)
+    interface RepoClickListener {
+        fun onRepoClicked(binding: ItemRepoBinding, repo: Repo)
     }
 
 }
