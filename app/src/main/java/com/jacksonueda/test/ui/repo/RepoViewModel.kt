@@ -33,9 +33,9 @@ class RepoViewModel @Inject constructor(
     val repos: LiveData<PagingData<Repo>> = _repos
 
     @ExperimentalCoroutinesApi
-    fun getRepos() {
+    fun getRepos(user: String) {
         addToDisposable(
-            repository.getUserRepo("google")
+            repository.getUserRepo(user)
                 .cachedIn(viewModelScope)
                 .subscribeOn(Schedulers.io())
                 .subscribe(

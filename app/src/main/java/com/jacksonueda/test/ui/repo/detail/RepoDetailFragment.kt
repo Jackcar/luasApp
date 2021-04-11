@@ -17,6 +17,7 @@ import com.jacksonueda.test.databinding.RepoDetailFragmentBinding
 import com.jacksonueda.test.ui.repo.ReposLoadStateAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import java.util.*
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
@@ -58,7 +59,7 @@ class RepoDetailFragment : Fragment() {
 
     private fun setupToolbar() {
         (activity as AppCompatActivity).apply {
-            supportActionBar?.title = repoDetails.name
+            supportActionBar?.title = repoDetails.name.capitalize(Locale.getDefault())
             supportActionBar?.setDisplayShowHomeEnabled(true)
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
         }

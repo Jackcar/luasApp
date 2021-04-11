@@ -1,6 +1,7 @@
 package com.jacksonueda.test
 
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.jacksonueda.test.ui.repo.RepoFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,4 +26,17 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.main_activity)
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                if (supportFragmentManager.backStackEntryCount > 0) {
+                    supportFragmentManager.popBackStack()
+                } else {
+                    super.onBackPressed()
+                }
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
 }

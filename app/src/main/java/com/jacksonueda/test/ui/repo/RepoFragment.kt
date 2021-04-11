@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
@@ -16,11 +17,13 @@ import com.jacksonueda.test.databinding.ItemRepoBinding
 import com.jacksonueda.test.databinding.RepoFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import java.util.*
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class RepoFragment : Fragment(), RepoAdapter.RepoClickListener {
 
+    private lateinit var user: String
     private lateinit var binding: RepoFragmentBinding
 
     private val repoAdapter = RepoAdapter(this)
@@ -28,6 +31,11 @@ class RepoFragment : Fragment(), RepoAdapter.RepoClickListener {
     // As the new Android Navigation does not hold the fragment state on the back navigation,
     // we hold it in the ViewModel so we can retrieve it later
     private val viewModel: RepoViewModel by hiltNavGraphViewModels(R.id.main_navigation)
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        user = "google"
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,6 +49,7 @@ class RepoFragment : Fragment(), RepoAdapter.RepoClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupToolbar()
         setupAdapter()
         setupListeners()
         setupObservers()
@@ -49,7 +58,15 @@ class RepoFragment : Fragment(), RepoAdapter.RepoClickListener {
             binding.repoRecyclerView.layoutManager?.onRestoreInstanceState(viewModel.listState)
             viewModel.listState = null
         } else {
-            viewModel.getRepos()
+            viewModel.getRepos(user)
+        }
+    }
+
+    private fun setupToolbar() {
+        (activity as AppCompatActivity).apply {
+            supportActionBar?.title =
+                getString(R.string.repo_title, user.capitalize(Locale.getDefault()))
+            supportActionBar?.setDisplayHomeAsUpEnabled(false)
         }
     }
 

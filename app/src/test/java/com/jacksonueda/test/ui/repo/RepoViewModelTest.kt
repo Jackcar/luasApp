@@ -1,14 +1,12 @@
-package com.jacksonueda.test.ui.user
+package com.jacksonueda.test.ui.repo
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import androidx.paging.PagingData
 import com.jacksonueda.test.RxImmediateSchedulerRule
-import com.jacksonueda.test.data.model.Id
-import com.jacksonueda.test.data.model.Name
 import com.jacksonueda.test.data.model.Picture
 import com.jacksonueda.test.data.model.User
-import com.jacksonueda.test.data.repository.user.GithubRepository
+import com.jacksonueda.test.data.repository.GithubRepository
 import com.nhaarman.mockitokotlin2.*
 import io.reactivex.rxjava3.core.Flowable
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -22,9 +20,9 @@ import org.mockito.junit.MockitoJUnitRunner
 
 @ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
-class UserViewModelTest {
+class RepoViewModelTest {
 
-    private lateinit var viewModel: UserViewModel
+    private lateinit var viewModel: RepoViewModel
 
     @Mock
     private lateinit var repository: GithubRepository
@@ -42,7 +40,7 @@ class UserViewModelTest {
 
     @Before
     fun setup() {
-        viewModel = UserViewModel(repository)
+        viewModel = RepoViewModel(repository)
         viewModel.repos.observeForever(mockLiveDataObserver)
     }
 
@@ -54,7 +52,7 @@ class UserViewModelTest {
         whenever(repository.getUser()).thenReturn(Flowable.just(pagingData))
 
         // When
-        viewModel.getUsers()
+        viewModel.getRepos()
 
         // Then
         verify(repository, times(1)).getUser()
@@ -68,7 +66,7 @@ class UserViewModelTest {
         whenever(repository.getUser()).thenReturn(Flowable.error(exception))
 
         // When
-        viewModel.getUsers()
+        viewModel.getRepos()
 
         // Then
         verify(repository, times(1)).getUser()

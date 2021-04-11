@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Test</string>
+    <string name="repo_title">%1$s Repositories</string>
     <string name="label_duration">Duration</string>
     <string name="label_destination">Destination</string>
     <string name="star_icon">Star icon</string>
