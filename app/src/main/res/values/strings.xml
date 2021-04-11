@@ -8,4 +8,6 @@
     <string name="default_branch_icon_description">Default branch icon</string>
     <string name="issue_icon">Issue icon</string>
     <string name="retry_button">Retry</string>
+    <string name="no_issues">Good! No issues here</string>
+    <string name="retry_error_message">Oh no! Looks like something went wrong, swipe down to load again.</string>
 </resources>

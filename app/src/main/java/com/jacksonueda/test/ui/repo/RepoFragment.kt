@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.findNavController
@@ -21,7 +23,7 @@ class RepoFragment : Fragment(), RepoAdapter.RepoClickListener {
 
     private lateinit var binding: RepoFragmentBinding
 
-    private val userAdapter = RepoAdapter(this)
+    private val repoAdapter = RepoAdapter(this)
 
     // As the new Android Navigation does not hold the fragment state on the back navigation,
     // we hold it in the ViewModel so we can retrieve it later
@@ -52,29 +54,46 @@ class RepoFragment : Fragment(), RepoAdapter.RepoClickListener {
     }
 
     /**
-     * Function responsible to set up the binding variables or views to the Fragment.
+     * Function responsible to set up the adapter and its states
      */
     private fun setupAdapter() {
-        with(userAdapter) {
+        with(repoAdapter) {
             binding.repoRecyclerView.adapter = this
             binding.repoRecyclerView.adapter = this.withLoadStateHeaderAndFooter(
                 header = ReposLoadStateAdapter { this.retry() },
                 footer = ReposLoadStateAdapter { this.retry() }
             )
             this.addLoadStateListener { loadState ->
-                binding.swipeRefreshLayout.isRefreshing = loadState.refresh is LoadState.Loading
+                binding.swipeRefreshLayout.isRefreshing =
+                    loadState.source.refresh is LoadState.Loading
+
+                // Show the retry state if initial load/refresh fails and there is no item in the list.
+                with(loadState.source.refresh is LoadState.Error && repoAdapter.itemCount == 0) {
+                    binding.retryIcon.isVisible = this
+                    binding.retryText.isVisible = this
+                }
+
+                // Toast on any error
+                val errorState = loadState.refresh as? LoadState.Error
+                errorState?.let {
+                    Toast.makeText(
+                        requireContext(),
+                        "Wooops, ${it.error.localizedMessage}",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
             }
         }
 
     }
 
     private fun setupListeners() {
-        binding.swipeRefreshLayout.setOnRefreshListener { userAdapter.refresh() }
+        binding.swipeRefreshLayout.setOnRefreshListener { repoAdapter.refresh() }
     }
 
     private fun setupObservers() {
         viewModel.repos.observeForever {
-            userAdapter.submitData(lifecycle, it)
+            repoAdapter.submitData(lifecycle, it)
         }
     }
 
