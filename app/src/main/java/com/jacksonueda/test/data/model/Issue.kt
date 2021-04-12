@@ -15,7 +15,7 @@ data class Issue(
     val state: String = "",
     val locked: Boolean = false,
     val comments: Int = 0,
-    val createdAt: String,
+    val createdAt: String = "",
     val updatedAt: String = "",
     val closedAt: String = ""
 ) : Parcelable

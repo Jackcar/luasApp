@@ -3,8 +3,9 @@ package com.jacksonueda.test.ui.repo
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import androidx.paging.PagingData
+import com.jacksonueda.test.MainCoroutineRule
 import com.jacksonueda.test.RxImmediateSchedulerRule
-import com.jacksonueda.test.data.model.Picture
+import com.jacksonueda.test.data.model.Repo
 import com.jacksonueda.test.data.model.User
 import com.jacksonueda.test.data.repository.GithubRepository
 import com.nhaarman.mockitokotlin2.*
@@ -14,6 +15,8 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.ArgumentCaptor
+import org.mockito.Captor
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
 
@@ -28,15 +31,17 @@ class RepoViewModelTest {
     private lateinit var repository: GithubRepository
 
     @Mock
-    lateinit var mockLiveDataObserver: Observer<PagingData<User>>
+    lateinit var mockLiveDataObserver: Observer<PagingData<Repo>>
 
-    @Rule
-    @JvmField
+    @get:Rule
     var testSchedulerRule = RxImmediateSchedulerRule()
 
-    @Rule
-    @JvmField
+    @get:Rule
+    val coroutineRule = MainCoroutineRule()
+
+    @get:Rule
     val ruleForLivaData = InstantTaskExecutorRule()
+
 
     @Before
     fun setup() {
@@ -45,31 +50,31 @@ class RepoViewModelTest {
     }
 
     @Test
-    fun `should receive users update when data is refreshed successfully`() {
+    fun `should receive repo update when data is refreshed successfully`() {
         // Given
-        val user = User(Id("", ""), Name("", "", ""), "", Picture("", "", ""))
-        val pagingData = PagingData.from(listOf(user))
-        whenever(repository.getUser()).thenReturn(Flowable.just(pagingData))
+        val repo = Repo(owner = User())
+        val pagingData = PagingData.from(listOf(repo))
+        whenever(repository.getRepos(any())).thenReturn(Flowable.just(pagingData))
 
         // When
-        viewModel.getRepos()
+        viewModel.getRepos("google")
 
         // Then
-        verify(repository, times(1)).getUser()
-        verify(mockLiveDataObserver, times(1)).onChanged(eq(pagingData))
+        verify(repository, times(1)).getRepos("google")
+        verify(mockLiveDataObserver, times(1)).onChanged(any())
     }
 
     @Test
     fun `should not receive data update when data fails to refresh`() {
         // Given
         val exception = Exception()
-        whenever(repository.getUser()).thenReturn(Flowable.error(exception))
+        whenever(repository.getRepos(any())).thenReturn(Flowable.error(exception))
 
         // When
-        viewModel.getRepos()
+        viewModel.getRepos("google")
 
         // Then
-        verify(repository, times(1)).getUser()
+        verify(repository, times(1)).getRepos("google")
         verifyZeroInteractions(mockLiveDataObserver)
     }
 

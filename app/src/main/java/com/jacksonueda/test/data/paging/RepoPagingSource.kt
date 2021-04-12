@@ -14,7 +14,7 @@ class RepoPagingSource(
 
     override fun loadSingle(params: LoadParams<Int>): Single<LoadResult<Int, Repo>> {
         val page = params.key ?: 1
-        return service.getUserRepo(user, page)
+        return service.getRepos(user, page)
             .subscribeOn(Schedulers.io())
             .map<LoadResult<Int, Repo>> {
                 LoadResult.Page(

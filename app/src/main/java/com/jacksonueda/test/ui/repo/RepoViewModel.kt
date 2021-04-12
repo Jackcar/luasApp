@@ -35,7 +35,7 @@ class RepoViewModel @Inject constructor(
     @ExperimentalCoroutinesApi
     fun getRepos(user: String) {
         addToDisposable(
-            repository.getUserRepo(user)
+            repository.getRepos(user)
                 .cachedIn(viewModelScope)
                 .subscribeOn(Schedulers.io())
                 .subscribe(

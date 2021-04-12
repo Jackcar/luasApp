@@ -59,9 +59,9 @@ dependencies {
 
     implementation "androidx.recyclerview:recyclerview:$versions.recyclerView"
     implementation "androidx.cardview:cardview:$versions.cardview"
-    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.4'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.3.4'
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:$versions.swipeRefreshLayout"
+    implementation "androidx.navigation:navigation-fragment-ktx:$versions.navigation"
+    implementation "androidx.navigation:navigation-ui-ktx:$versions.navigation"
 
     // desugaring
     coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:$versions.coreDesugaring"
@@ -95,7 +95,6 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$versions.lifecycleVersion"
     implementation "androidx.paging:paging-runtime-ktx:$versions.pagingVersion"
-    // optional - RxJava3 support
     implementation "androidx.paging:paging-rxjava3:$versions.pagingVersion"
 
     // test
@@ -105,4 +104,7 @@ dependencies {
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$versions.mockitoKotlinVersion"
     testImplementation "org.mockito:mockito-inline:$versions.mockitoInlineVersion"
     testImplementation "androidx.arch.core:core-testing:$versions.androidxCoreTesting"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$versions.kotlinCoroutinesTest"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$versions.kotlinCoroutinesTest"
+    testImplementation "org.jetbrains.kotlin:kotlin-test:$versions.kotlinTest"
 }

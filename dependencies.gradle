@@ -30,8 +30,10 @@ ext.versions = [
         retrofitVersion      : '2.9.0',
         okhttpVersion        : '4.9.0',
 
-        // adapter
-        recyclerView         : '1.2.0-rc01',
+        // jetpack
+        recyclerView         : '1.2.0',
+        swipeRefreshLayout   : '1.1.0',
+        navigation           : '2.3.5',
 
         // desugaring
         coreDesugaring       : '1.1.5',
@@ -42,5 +44,7 @@ ext.versions = [
         espressoVersion      : '3.3.0',
         mockitoKotlinVersion : '2.2.0',
         mockitoInlineVersion : '3.5.13',
-        androidxCoreTesting  : '2.1.0'
+        androidxCoreTesting  : '2.1.0',
+        kotlinCoroutinesTest : '1.4.3',
+        kotlinTest           : '1.1.51'
 ]
